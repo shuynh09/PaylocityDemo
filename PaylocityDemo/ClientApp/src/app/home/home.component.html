@@ -1,0 +1,47 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-6">
+      <h5>Employee</h5>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="employeeFullName">Full Name</label>
+          <input type="text" class="form-control" id="employeeFullName" required placeholder="Enter employee full name" formControlName="fullName" (keyup)="onKey($event)">
+        </div>
+      </div>
+      <h5 *ngIf="dependents.length > 0">Dependents</h5>
+      <div class="form-row">
+        <div class="form-group col">
+          <ul class="list-unstyled" *ngIf="dependents">
+            <li *ngFor="let dependent of dependents.controls; index as i">
+              <div class="form-row">
+                <div class="form-group col">
+                  <label for="dependentFullName{{[i]}}">Full Name - <a href="#" class="delete" (click)="removeDependent(i)">Remove Dependent</a></label>
+                  <input id="dependentFullName{{[i]}}" type="text" class="form-control" required placeholder="Enter dependent full name" [formControl]="dependents.controls[i]" />
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col text-right">
+          <a href="#" (click)="addDependent()">+Add Dependent</a>
+        </div>
+      </div>
+      <button type="button" class="btn btn-link mr-2" (click)="calculate()" [disabled]="!form.valid">Calculate</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+      <div class="alert alert-success mt-3" role="alert" *ngIf="successMessage">
+        {{successMessage}}
+      </div>
+      <div class="alert alert-danger mt-3" role="alert" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
+    </div>
+    <div class="col">
+      <div *ngIf="loading">Loading...</div>
+      <div *ngIf="quote">
+        <app-quote-component [quote]="quote"></app-quote-component>
+      </div>
+    </div>
+  </div>
+</form>

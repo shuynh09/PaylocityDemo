@@ -1,0 +1,13 @@
+<h3>Annual Cost</h3>
+<table class="table table-border" *ngFor="let item of quote.items">
+  <thead>
+    <tr class="thead-dark" *ngIf="item.header">
+      <th class="col-6">{{item.header}}</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tr>
+    <td>{{item.caption}}</td>
+    <td class="text-right">{{item.amount}}</td>
+  </tr>
+</table>
