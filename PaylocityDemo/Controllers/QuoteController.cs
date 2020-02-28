@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PaylocityDemo.Services;
 using PaylocityDemo.ViewModels;
 
@@ -16,6 +17,7 @@ namespace PaylocityDemo.Controllers
         }
 
         // POST: Quote
+        [Authorize(Policy = "ApiKeyPolicy")]
         [HttpPost]
         public object Post([FromBody] EmployeeViewModel value)
         {

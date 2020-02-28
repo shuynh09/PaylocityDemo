@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +25,16 @@ namespace PaylocityDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IQuoteService, QuoteService>();
+            services.AddTransient<IAuthorizationHandler, ApiKeyRequirementHandler>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddAuthorization(authConfig =>
+            {
+                authConfig.AddPolicy("ApiKeyPolicy",
+                    policyBuilder => policyBuilder
+                        .AddRequirements(new ApiKeyRequirement(new[] { "XafBJrjVnSVbWqKVZ6C5" })));
+            });
+
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -55,6 +67,8 @@ namespace PaylocityDemo
             }
 
             app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

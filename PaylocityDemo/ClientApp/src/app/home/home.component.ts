@@ -21,7 +21,8 @@ export class HomeComponent {
     this.form = formBuilder.group({ fullName: '', dependents: this.dependents });
     this.httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Api-Key': 'XafBJrjVnSVbWqKVZ6C5'
       })
     };
   }

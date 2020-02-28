@@ -13,7 +13,8 @@ using PaylocityDemo.ViewModels;
 
 namespace PaylocityDemo.Controllers
 {
-    [Authorize] 
+    [Authorize(Policy = "ApiKeyPolicy")]
+
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
