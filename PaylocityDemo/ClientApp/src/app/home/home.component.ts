@@ -61,7 +61,6 @@ export class HomeComponent {
 
   onSubmit() {
     const payload = Object.assign({}, this.form.value);
-    payload.dependents = Object.assign([], this.form.value.dependents);
     this.http.post(this.baseUrl + 'api/' + 'employee', payload, this.httpOptions)
       .subscribe(
         (response: any) => {
